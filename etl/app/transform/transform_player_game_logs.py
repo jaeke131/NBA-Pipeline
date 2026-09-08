@@ -35,3 +35,14 @@ def transform_player_game_logs(records):
         raise ValueError(
             f"Source data is missing columns: {sorted(missing_columns)}"
         )
+    
+    transformed = records[selected_columns].copy()
+    transformed.columns = transformed.columns.str.lower()
+    #Primary Keys 
+    identifier_columns = [
+        "player_id",
+        "team_id",
+        "game_id",
+    ]
+    
+        
