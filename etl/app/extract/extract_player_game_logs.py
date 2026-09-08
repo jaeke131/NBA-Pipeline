@@ -24,9 +24,17 @@ def extract_player_games_log(season):
     return response
     
     print(f"Saved {len(df)} rows to {output_path}")
-    
-    return df 
+def save_raw_response(response, season):
+    RAW_DATA_DIRECTORY.mkdir(parents=True, exist_ok=True)
 
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    filename = f"player_game_logs_{season}_{timestamp}.json"
+    output_path = RAW_DATA_DIRECTORY / filename
+    output_path.write_text(
+        response.get_response(),
+        encoding="utf-8",
+    )
+    return output_path
 if __name__ == "__main__":
     extract_player_game_logs()
 
