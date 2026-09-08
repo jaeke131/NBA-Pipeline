@@ -35,8 +35,28 @@ def save_raw_response(response, season):
         encoding="utf-8",
     )
     return output_path
+def main(): 
+    season = "2025-26"
+
+    try:
+        response = extract_player_games_log(season)
+        records = response.player_game_logs.get_data_frame()
+        if records.empty:
+            raise ValueError("NBA API returned zero player-game records")
+        output_path = save_raw_response(response, season)
+        print("Request successful")
+        print(f"Extracted {len(records)} player-game records")
+        print(f"Raw response saved to {output_path}")
+
+    except RequestException as error:
+        print(f"NBA API request failed: {error}")
+        raise
+
+    except ValueError as error:
+        print(f"NBA API data validation failed: {error}")
+        raise
 if __name__ == "__main__":
-    extract_player_game_logs()
+    main()
 
                           
                             
