@@ -1,0 +1,8 @@
+etl/data/raw/*
+etl/data/processed/*
+etl/data/logs/*
+
+!etl/data/raw/.gitkeep
+!etl/data/processed/.gitkeep
+!etl/data/logs/.gitkeep
+data/raw/*.json
