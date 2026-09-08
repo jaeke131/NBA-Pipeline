@@ -51,4 +51,36 @@ def transform_player_game_logs(records):
     transformed["game_date"] = pd.to_datetime(
         transformed["game_date"],
         errors="coerce",
-    )    
+    )
+    
+    numeric_columns = [
+        "min",
+        "pts",
+        "reb",
+        "ast",
+        "stl",
+        "blk",
+        "tov",
+        "fgm",
+        "fga",
+        "fg_pct",
+        "fg3m",
+        "fg3a",
+        "fg3_pct",
+        "ftm",
+        "fta",
+        "ft_pct",
+        "plus_minus",
+    ]
+
+    for column in numeric_columns:
+        transformed[column] = pd.to_numeric(
+            transformed[column],
+            errors="coerce",
+        )
+
+    required_columns = [
+        "player_id",
+        "game_id",
+        "game_date",
+    ]    
