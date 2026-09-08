@@ -45,4 +45,10 @@ def transform_player_game_logs(records):
         "game_id",
     ]
     
-        
+    for column in identifier_columns:
+        transformed[column] = transformed[column].astype("string")
+
+    transformed["game_date"] = pd.to_datetime(
+        transformed["game_date"],
+        errors="coerce",
+    )    
