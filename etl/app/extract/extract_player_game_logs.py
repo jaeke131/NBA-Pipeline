@@ -4,7 +4,7 @@ from nba_api.stats.endpoints import playercareerstats
 import pandas as pd
 from nba_api.stats.endpoints import playergamelogs
 from requests import RequestException
-RAW_DATA_DIR = ("etl/data/raw")
+
 RAW_DATA_DIRECTORY = Path("data/raw")
 def extract_player_games_log( 
      season: str = "2024-2025",
@@ -23,7 +23,7 @@ def extract_player_games_log(season):
     )
     return response
     
-    print(f"Saved {len(df)} rows to {output_path}")
+
 def save_raw_response(response, season):
     RAW_DATA_DIRECTORY.mkdir(parents=True, exist_ok=True)
 
