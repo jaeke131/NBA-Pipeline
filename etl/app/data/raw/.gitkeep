@@ -6,3 +6,4 @@ etl/data/logs/*
 !etl/data/processed/.gitkeep
 !etl/data/logs/.gitkeep
 data/raw/*.json
+etl/data/raw/*.json
