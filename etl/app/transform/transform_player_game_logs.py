@@ -38,4 +38,6 @@ def transform_player_game_logs(records):
             f"Source data is missing columns: {sorted(missing_columns)}"
         )
 
-    
+
+    transformed = records[selected_columns].copy()
+    transformed.columns = transformed.columns.str.lower()
