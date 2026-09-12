@@ -13,7 +13,7 @@ def extract_player_games_log(
     
     print(f"Pulling NBA player game logs for {season} - {season_type}...")
 
-    logs = playergamelogs.PlayerGameLogs(
+    logs = playergamelogs.PlayerGameLogs()
 def extract_player_games_log(season):
     response = playergamelogs.PlayerGameLogs(
         season_nullable = season, 
