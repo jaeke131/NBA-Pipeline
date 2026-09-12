@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: nba-props-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: nba_props
+      POSTGRES_USER: nba_user
+      POSTGRES_PASSWORD: nba_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - nba_props_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  nba_props_postgres_data:
