@@ -90,8 +90,18 @@ def transform_player_game_logs(records):
             transformed[column],
             errors = "coerce"
         )
+    required_columns = [ 
+        "player_id", 
+        "game_id", 
+        "game_date", 
     
+    ]
+    null_counts = transformed[required_columns].isna.sum() 
     
+    if null_counts.any(): 
+        raise ValueError("Required columns contain null values\n{null_counts}"
+        
+        )
     
     
 
