@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from app.db.connection import engine
+from etl.app.db.connection import engine
 
 
 SCHEMA_PATH = Path(__file__).resolve().parents[1] / "db" / "schema.sql"
