@@ -64,7 +64,8 @@ def transform_player_game_logs(records):
         transformed["game_date"],
         errors="coerce",
     )
-    
+    #Take the statistical columns and convert the data types of them to clean numerica pandas data type 
+    #Iterate, transform and then 
     numeric_columns = [
         "min",
         "pts",
@@ -102,6 +103,9 @@ def transform_player_game_logs(records):
         raise ValueError("Required columns contain null values\n{null_counts}"
         
         )
+    
+    duplicate_count = transformed.duplicated(
+        subset = ["game_id", "player_id"]).sum()
     
     
 
