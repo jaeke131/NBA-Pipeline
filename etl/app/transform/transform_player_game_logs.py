@@ -50,18 +50,6 @@ def get_latest_raw_file() -> Path:
 
 
 def build_dataframe_from_raw_json(raw_data) -> pd.DataFrame:
-    """
-    Convert the saved NBA API JSON response into a pandas DataFrame.
-
-    nba_api responses commonly store data as:
-    {
-        "headers": [...],
-        "rowSet": [...]
-    }
-
-    Sometimes the response may be nested inside "resultSets".
-    """
-
     if isinstance(raw_data, list):
         return pd.DataFrame(raw_data)
 
@@ -89,10 +77,6 @@ def build_dataframe_from_raw_json(raw_data) -> pd.DataFrame:
     raise ValueError(
         f"Could not find headers/rowSet data in raw JSON. Top-level keys: {list(raw_data.keys())}"
     )
-<<<<<<< Updated upstream
-    #Take the statistical columns and convert the data types of them to clean numerica pandas data type 
-    #Iterate, transform and then 
-=======
 
 
 def transform_player_game_logs() -> pd.DataFrame:
@@ -120,7 +104,6 @@ def transform_player_game_logs() -> pd.DataFrame:
     if "game_date" in df.columns:
         df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce").dt.date
 
->>>>>>> Stashed changes
     numeric_columns = [
         "minutes",
         "points",
@@ -140,32 +123,6 @@ def transform_player_game_logs() -> pd.DataFrame:
         "free_throw_pct",
         "plus_minus",
     ]
-<<<<<<< Updated upstream
-    
-    for column in numeric_columns: 
-        transformed[column] = pd.to_numeric( 
-            transformed[column],
-            errors = "coerce"
-        )
-    required_columns = [ 
-        "player_id", 
-        "game_id", 
-        "game_date", 
-    
-    ]
-    null_counts = transformed[required_columns].isna.sum() 
-    
-    if null_counts.any(): 
-        raise ValueError("Required columns contain null values\n{null_counts}"
-        
-        )
-    
-    duplicate_count = transformed.duplicated(
-        subset = ["game_id", "player_id"]).sum()
-    
-    
-=======
->>>>>>> Stashed changes
 
     for column in numeric_columns:
         if column in df.columns:
