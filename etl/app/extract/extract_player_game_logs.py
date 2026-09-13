@@ -6,14 +6,14 @@ from nba_api.stats.endpoints import playergamelogs
 from requests import RequestException
 
 RAW_DATA_DIRECTORY = Path("data/raw")
+def extract_player_games_log( 
+     season: str = "2024-2025",
+     season_type: str = "Regular-Season"
+ ) ->pd.DataFrame:
+    
+    print(f"Pulling NBA player game logs for {season} - {season_type}...")
 
-#Extraction function to get regular season game
-# The response equals 
-# 
-#
-#
-#
-
+    logs = playergamelogs.PlayerGameLogs()
 def extract_player_games_log(season):
     response = playergamelogs.PlayerGameLogs(
         season_nullable = season, 
