@@ -9,7 +9,7 @@ PROCESSED_DATA_DIRECTORY = Path("etl/app/data/processed")
 
 
 def load_player_game_logs(
-    file_name: str = "player_game_logs_cleaned_2024_25.csv",
+    file_name: str = "player_game_logs_cleaned.csv",
     table_name: str = "fact_player_game_logs",
 ) -> None:
     file_path = PROCESSED_DATA_DIRECTORY / file_name
