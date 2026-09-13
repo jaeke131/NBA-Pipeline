@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    
+    {
+      "name": "Debug create_tables module",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "etl.app.load.create_tables",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/etl/.env"
+    },
+    {
+      "name": "Debug transform module",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "etl.app.transform.transform_player_game_logs",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug load module",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "etl.app.load.load_player_game_logs",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/etl/.env"
+    }
+  ]
+}

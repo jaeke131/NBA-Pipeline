@@ -12,9 +12,9 @@ load_dotenv(ENV_PATH)
 
 
 DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_PORT = os.getenv("DB_PORT", "5432")
+DB_PORT = os.getenv("DB_PORT", "5434")
 DB_NAME = os.getenv("DB_NAME", "nba_props")
-DB_USER = os.getenv("DB_USER", "postgres")
+DB_USER = os.getenv("DB_USER", "nba_user")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 
 
