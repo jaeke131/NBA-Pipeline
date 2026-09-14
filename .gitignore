@@ -151,3 +151,5 @@ etl/app/data/processed/*
 
 AGENTS.md
 .gitignore
+.etl/app/extract/__pycache__
+.etl/app/__pycache__
