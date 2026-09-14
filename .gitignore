@@ -151,5 +151,7 @@ etl/app/data/processed/*
 
 AGENTS.md
 .gitignore
-__pycache__/
-*.pyc
+.etl/app/extract/__pycache__
+.etl/app/__pycache__
+etl\app\__pycache__
+C:\Users\new pc\Desktop\NBA-Pipeline\etl\app\transform
