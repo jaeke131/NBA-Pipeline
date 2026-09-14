@@ -149,3 +149,5 @@ etl/app/data/processed/*
 !etl/app/data/processed/.gitkeep
 
 
+AGENTS.md
+.gitignore
