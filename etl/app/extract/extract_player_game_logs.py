@@ -41,7 +41,7 @@ def main():
     season = "2025-26"
 
     try:
-        response = extract_player_games_log(season)
+        response = extract_player_games_logs(season)
         records = response.player_game_logs.get_data_frame()
 
         if records.empty:

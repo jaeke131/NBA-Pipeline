@@ -108,6 +108,11 @@ def transform_player_game_logs() -> pd.DataFrame:
     )
     #Take the statistical columns and convert the data types of them to clean numerica pandas data type 
 
+    df = df[columns_to_keep].copy()
+
+    if "game_date" in df.columns:
+        df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce").dt.date
+
     numeric_columns = [
         "minutes",
         "points",
