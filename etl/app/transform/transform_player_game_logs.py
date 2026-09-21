@@ -79,36 +79,33 @@ def build_dataframe_from_raw_json(raw_data) -> pd.DataFrame:
     )
 
 
-def transform_player_game_logs() -> pd.DataFrame:
-    raw_file = get_latest_raw_file()
+def transform_player_game_logs(raw_df: pd.DataFrame | None = None) -> pd.DataFrame:
+    if raw_df is None:
+        raw_file = get_latest_raw_file()
+        print(f"Transforming raw file: {raw_file}")
 
-    print(f"Transforming raw file: {raw_file}")
+        with open(raw_file, "r", encoding="utf-8") as file:
+            raw_data = json.load(file)
 
-    with open(raw_file, "r", encoding="utf-8") as file:
-        raw_data = json.load(file)
+        raw_df = build_dataframe_from_raw_json(raw_data)
 
-    df = build_dataframe_from_raw_json(raw_data)
+    df = raw_df.copy()
 
     print(f"Raw rows: {len(df)}")
     print(f"Raw columns: {list(df.columns)}")
 
     df = df.rename(columns=COLUMN_RENAMES)
 
-    columns_to_keep = [
+    required_output_columns = [
         column for column in COLUMN_RENAMES.values()
         if column in df.columns
     ]
-    #iterate through the primary keys and transform the data type of the id columns to string 
-    for column in identifier_columns:
-        transformed[column] = transformed[column].astype("string")
-    #Converts the game date column to datetime values. Prevents invalid dates from raising an excption instead of invaliding or missing data. 
-    transformed["game_date"] = pd.to_datetime(
-        transformed["game_date"],
-        errors="coerce",
-    )
-    #Take the statistical columns and convert the data types of them to clean numerica pandas data type 
+    df = df[required_output_columns].copy()
 
-    df = df[columns_to_keep].copy()
+    identifier_columns = ["season_year", "player_id", "team_id", "game_id"]
+    for column in identifier_columns:
+        if column in df.columns:
+            df[column] = df[column].astype("string")
 
     if "game_date" in df.columns:
         df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce").dt.date
@@ -132,37 +129,17 @@ def transform_player_game_logs() -> pd.DataFrame:
         "free_throw_pct",
         "plus_minus",
     ]
-    #Iterate through the numeric columns to convert to pandas data type numeric. Any invalid data that comes throws an error coerce 
-    
-    for column in numeric_columns: 
-        transformed[column] = pd.to_numeric( 
-            transformed[column],
-            errors = "coerce"
-        )
-    #
-    required_columns = [ 
-        "player_id", 
-        "game_id", 
-        "game_date", 
-    
-    ]
-    null_counts = transformed[required_columns].isna.sum() 
-    
-    if null_counts.any(): 
-        raise ValueError("Required columns contain null values\n{null_counts}"
-        
-        )
-    
-    duplicate_count = transformed.duplicated(
-        subset = ["game_id", "player_id"]).sum()
-    
-    
 
     for column in numeric_columns:
         if column in df.columns:
             df[column] = pd.to_numeric(df[column], errors="coerce")
 
-    df = df.drop_duplicates()
+    required_columns = ["player_id", "game_id", "game_date"]
+    missing_required = [column for column in required_columns if column in df.columns and df[column].isna().any()]
+    if missing_required:
+        raise ValueError(f"Required columns contain null values: {missing_required}")
+
+    df = df.drop_duplicates(subset=["game_id", "player_id"], keep="first")
 
     PROCESSED_DATA_DIRECTORY.mkdir(parents=True, exist_ok=True)
 
